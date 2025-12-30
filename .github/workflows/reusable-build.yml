@@ -158,6 +158,18 @@ jobs:
       - name: debug
         run: sudo podman images
 
+      - name: Add debug symbols for rpm-ostree
+        run: |
+          cat <<'EOF' > debug.Containerfile
+          FROM quay.io/fedora/fedora-bootc:latest
+          RUN dnf install -y dnf5-plugins && \
+            dnf5 config-manager setopt updates-debuginfo.enabled=1 && \
+            dnf5 config-manager setopt fedora-debuginfo.enabled=1 && \
+            dnf install -y rpm-ostree-debuginfo
+          EOF
+
+          sudo podman build -t localhost/fedora-bootc-debug:latest -f debug.Containerfile .
+
       # This happens to rename localhost/aurora:stable to :stable-daily
       # same behavior as before, we have to redo this logic when we are doing
       # stable, testing, next anyway, leave the mess for now
@@ -171,7 +183,7 @@ jobs:
           sudo podman run --rm \
             --privileged \
             -v /var/lib/containers:/var/lib/containers \
-            "quay.io/fedora/fedora-bootc:latest" \
+            "localhost/fedora-bootc-debug:latest" \
             /usr/libexec/bootc-base-imagectl rechunk \
                 localhost/${IMAGE_NAME}:${MATRIX_STREAM_NAME} \
                 ${BASELINE_IMAGE}
