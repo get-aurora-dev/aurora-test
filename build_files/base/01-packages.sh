@@ -198,6 +198,9 @@ dnf -y swap \
 #    dnf5 upgrade --refresh --advisory=FEDORA-2024-dd2e9fb225
 #fi
 
+echo "I'm super important and I want this in stable"
+echo "This is another very very important thing"
+
 # https://invent.kde.org/plasma/plasma-setup/-/issues/72
 dnf -y swap --repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
   plasma-setup plasma-setup-"${PLASMA_VERS}"-*.aurora
