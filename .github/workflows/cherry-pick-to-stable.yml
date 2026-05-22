@@ -29,6 +29,6 @@ jobs:
           # the following permissions:
           # - Pull requests: Read and write
           # - Contents: Read and Write
-          # - Actions: Read and writer
+          # - Actions: Read and write
           github_token: ${{ secrets.CI_TRIGGER_TOKEN }}
           target_branches: "stable-f44"
