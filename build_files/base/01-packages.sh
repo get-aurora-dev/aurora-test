@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+# This is where packages are defined
 
 echo "::group:: ===$(basename "$0")==="
 
