@@ -10,7 +10,7 @@ jobs:
   cherry-pick:
     # Ensures the PR was actually merged AND has the correct backport label
     if: |
-      github.event.pull_request.merged == true && 
+      github.event.pull_request.merged == true &&
       contains(github.event.pull_request.labels.*.name, 'cherry-pick')
 
     runs-on: ubuntu-slim
@@ -41,12 +41,11 @@ jobs:
           # Use the dynamically generated GitHub App token here too
           github_token: ${{ steps.generate-token.outputs.token }}
           target_branches: "stable-f44"
+          add_labels: "backported-to-stable"
           pull_description: |
             This is an automated backport of PR #${pull_number} to `${target_branch}`.
 
             **_Please review the changes._**
-            
+
             ### Original PR Description:
             ${pull_description}
-
-            
